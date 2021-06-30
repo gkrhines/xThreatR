@@ -16,8 +16,8 @@ ymin = 0
 
 xi = (x - xmin) / 105.0 * l
 yj = (y - ymin) / 68.0 * w
-xi <- round(pmax(pmin(xi, l), 1))
-yj <- round(pmax(pmin(yj, w), 1))
+xi <- ceiling(pmax(pmin(xi, l), 1))
+yj <- ceiling(pmax(pmin(yj, w), 1))
 
 return(list(xi, yj))
 }
@@ -207,6 +207,7 @@ while (TRUE %in% as.vector(diff > self@eps) & it < iter_max)
   }
 
 newxT = gs + (p_move * total_payoff)
+newxT[is.na(newxT)] <- 0
 diff = newxT - self@xT
 self@xT = newxT
 self@heatmaps <- append(self@heatmaps, self@xT)
